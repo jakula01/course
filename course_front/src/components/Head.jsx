@@ -5,6 +5,7 @@ import AuthForm from "./AuthForm";
 import ThemeToggle from "./ThemeToggle";
 import LanguageSwitcher from "./LanguageSwitcher";
 import { useTranslation } from "react-i18next";
+import { useAuth } from "../auth/useAuth";
 
 export default function Head() {
   const [showModal, setShowModal] = useState(false);
@@ -13,11 +14,13 @@ export default function Head() {
   const handleShow = () => setShowModal(true);
   const navigate = useNavigate();
   const { t } = useTranslation();
+  const { logout } = useAuth();
 
   const handleLogout = () => {
     localStorage.removeItem("token");
     localStorage.removeItem("user");
     setUser(null);
+    logout();
     navigate("/");
   };
 
