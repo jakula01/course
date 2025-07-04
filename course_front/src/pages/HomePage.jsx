@@ -13,9 +13,10 @@ export default function HomePage() {
   const [showModal, setShowModal] = useState(false);
   const [selectedTemplate, setSelectedTemplate] = useState(null);
   const [showFeedback, setShowFeedback] = useState(false);
-  const fetchMyForms = async () => {
+  const fetchForms = async () => {
     try {
       const data = await getAllForms();
+
       setTemplates(data.allForms);
     } catch (err) {
       console.error("Ошибка при загрузке форм:", err);
@@ -26,7 +27,7 @@ export default function HomePage() {
   };
 
   useEffect(() => {
-    fetchMyForms();
+    fetchForms();
   }, []);
 
   return (

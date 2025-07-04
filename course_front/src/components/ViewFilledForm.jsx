@@ -15,15 +15,7 @@ export default function ViewFilledForm({ form }) {
         );
       }
     }
-    return (
-      <div className="mb-3">
-        {questions.length ? (
-          questions
-        ) : (
-          <div className="text-muted">Нет ответов</div>
-        )}
-      </div>
-    );
+    return <div className="mb-3">{questions.length ? questions : <></>}</div>;
   };
   return (
     <ul className="bg-white p-3 rounded shadow-sm space-y-2">

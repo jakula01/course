@@ -2,11 +2,9 @@ import { useState, useEffect } from "react";
 import { Button, Form } from "react-bootstrap";
 import { createForm, updateForm } from "../api/forms";
 import { useTranslation } from "react-i18next";
-export default function EditTemplateForm({
-  template = {},
-  onCreated,
-  isViewMode,
-}) {
+import { useNavigate } from "react-router-dom";
+export default function EditTemplateForm({ template = {}, onCreated }) {
+  const navigate = useNavigate();
   const { t } = useTranslation();
   const [formData, setFormData] = useState({
     title: "",
@@ -50,12 +48,12 @@ export default function EditTemplateForm({
   const handleSubmit = async (e) => {
     e.preventDefault();
     try {
+      let saved;
       if (template && template.id) {
-        await updateForm(formData, template.id);
+        saved = await updateForm(formData, template.id);
       } else {
         await createForm(formData);
       }
-      console.log(!!onCreated);
       if (onCreated) onCreated();
     } catch (err) {
       console.error("Ошибка при сохранении формы:", err);

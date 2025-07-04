@@ -16,7 +16,7 @@ export default function MyFilledForms() {
     const fetchForms = async () => {
       try {
         const data = await getAllMyFilledForms();
-        setMyFilledForms(data.forms);
+        setMyFilledForms(data.forms.reverse());
       } catch (err) {
         console.error("Ошибка при загрузке filled форм:", err);
         setError(t("failF"));
@@ -30,11 +30,6 @@ export default function MyFilledForms() {
   const handleClose = () => {
     setShowModal(false);
     setSelectedForm(null);
-  };
-
-  const handleOpen = (form) => {
-    setSelectedForm(form);
-    setShowModal(true);
   };
 
   return (

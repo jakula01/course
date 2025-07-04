@@ -19,9 +19,9 @@ export async function getMyForms() {
   return response.data;
 }
 export async function updateForm(formData, id) {
-  console.log();
   const response = await API.put(`/forms/${id}`, { formData });
-  return response.data;
+
+  return response.data.updatedForm;
 }
 export async function deleteForm(id) {
   const response = await API.delete(`/forms/${id}`);

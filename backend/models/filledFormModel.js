@@ -83,5 +83,15 @@ async function getAllMyFilledForms(userEmail) {
 
   return result.rows;
 }
+async function getFilledByFormId(formId) {
+  const query = `
+    SELECT *
+    FROM   filled_forms
+    WHERE  form_id = $1
+    ORDER  BY submitted_at DESC          -- последние сверху
+  `;
+  const res = await db.query(query, [formId]);
+  return res.rows;
+}
 
-module.exports = { saveFilledForm, getAllMyFilledForms };
+module.exports = { saveFilledForm, getAllMyFilledForms, getFilledByFormId };

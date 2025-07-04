@@ -6,6 +6,9 @@ async function addComment(formId, username, message) {
      VALUES ($1, $2, $3) RETURNING *`,
     [formId, username, message]
   );
+  await db.query(`UPDATE forms SET comments = comments + 1 WHERE id = $1`, [
+    formId,
+  ]);
   return result.rows[0];
 }
 
@@ -14,9 +17,10 @@ async function addLike(formId) {
 }
 
 async function getAllComments(formId) {
-  const result = await db.query("SELECT * from comments WHERE form_id = $1", [
-    formId,
-  ]);
+  const result = await db.query(
+    "SELECT * from comments WHERE form_id = $1 ORDER  BY created_at DESC",
+    [formId]
+  );
   return result.rows;
 }
 

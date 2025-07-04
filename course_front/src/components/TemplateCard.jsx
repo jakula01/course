@@ -85,7 +85,10 @@ export default function TemplateCard({ template, onClick }) {
           <i className="bi bi-person-fill me-2 text-info"></i>
           <span className="text-black">{template.author}</span>
         </small>
-
+        <small className="text-muted d-flex align-items-center">
+          <i className="bi bi-chat-left-text me-1"></i>
+          {template.comments ?? 0}
+        </small>
         <small className="text-danger d-flex align-items-center">
           <i className="bi bi-heart-fill me-1"></i>
           {template.likes ?? 0}

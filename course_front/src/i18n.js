@@ -49,6 +49,10 @@ const resources = {
       hAgo: "hours ago",
       dAgo: "days ago",
       filled: "Form filled by me",
+      answerFrom: "Answer from user ",
+      close: "Close",
+      commentPlaceholder: "Your comment",
+      leaveFeedback: "Leave Feedback",
     },
   },
   ru: {
@@ -97,6 +101,10 @@ const resources = {
       hAgo: "часов назад",
       dAgo: "дней назад",
       filled: "Формы заполненные мной",
+      answerFrom: "Ответ от пользователя ",
+      close: "Закрыть",
+      commentPlaceholder: "Коментарий",
+      leaveFeedback: "Оставьте отзыв",
     },
   },
 };

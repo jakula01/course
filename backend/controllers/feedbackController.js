@@ -16,7 +16,6 @@ const addLikeHandler = async (req, res) => {
 };
 
 const getAllCommentsHandler = async (req, res) => {
-  console.log(req.params.id);
   const formId = req.params.id;
   try {
     const comments = await getAllComments(formId);
