@@ -3,6 +3,7 @@ import { Form, Button, Modal } from "react-bootstrap";
 import { submitFIlledForm } from "../api/filledForms";
 import { useTranslation } from "react-i18next";
 import Comments from "./Comments";
+import { useAuth } from "../auth/useAuth";
 
 export default function FillTemplateForm({
   template,
@@ -10,6 +11,7 @@ export default function FillTemplateForm({
   canSend = true,
 }) {
   const [answers, setAnswers] = useState({});
+  const { isAuthenticated } = useAuth();
 
   const { t } = useTranslation();
   useEffect(() => {
@@ -62,6 +64,7 @@ export default function FillTemplateForm({
                 name={name}
                 checked={answers[name] || false}
                 onChange={handleChange}
+                disabled={!isAuthenticated}
               />
             ) : isTextarea ? (
               <Form.Control
@@ -70,6 +73,7 @@ export default function FillTemplateForm({
                 name={name}
                 value={answers[name] || ""}
                 onChange={handleChange}
+                disabled={!isAuthenticated}
               />
             ) : (
               <Form.Control
@@ -77,6 +81,7 @@ export default function FillTemplateForm({
                 name={name}
                 value={answers[name] || ""}
                 onChange={handleChange}
+                disabled={!isAuthenticated}
               />
             )}
           </Form.Group>
@@ -100,7 +105,7 @@ export default function FillTemplateForm({
         {renderFields("single_text", "text")}
         {renderFields("mul_text", "text", true)}
 
-        {canSend ? (
+        {canSend && isAuthenticated ? (
           <div className="text-end mt-4">
             <Button variant="success" type="submit">
               {t("submit")}

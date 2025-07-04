@@ -2,7 +2,9 @@ import React, { useState } from "react";
 import { Form, Button, Card, Alert } from "react-bootstrap";
 import { loginUser, registerUser } from "../api/auth";
 import { useTranslation } from "react-i18next";
+import { useAuth } from "../auth/useAuth";
 export default function AuthForm({ setUser, handleClose }) {
+  const { login } = useAuth();
   const [isLogin, setIsLogin] = useState(true);
   const { t } = useTranslation();
   const [formData, setFormData] = useState({
@@ -47,6 +49,7 @@ export default function AuthForm({ setUser, handleClose }) {
         confirmPassword: "",
       });
       setUser(res.user);
+      login(res.user);
       handleClose();
     } catch (err) {
       setError(err.message);
