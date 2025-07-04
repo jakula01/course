@@ -12,7 +12,7 @@ export default function Comments({ id }) {
     (async () => {
       try {
         const data = await getComments(id);
-        setComments(data.comments || []); // учитываем форму ответа { comments: [...] }
+        setComments(data);
       } catch (err) {
         console.error("Ошибка загрузки комментариев:", err);
       }

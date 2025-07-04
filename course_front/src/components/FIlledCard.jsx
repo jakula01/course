@@ -1,7 +1,8 @@
-import { useTimeAgo } from "../utility/timeAgoCalculator";
-
+import { formatTimeAgo } from "../utility/timeAgoCalculator";
+import { useTranslation } from "react-i18next";
 export default function FilledCard({ form, onClick }) {
-  const timeAgo = useTimeAgo(form.submitted_at);
+  const { t } = useTranslation();
+  const timeAgo = formatTimeAgo(form.submitted_at, t);
 
   return (
     <div

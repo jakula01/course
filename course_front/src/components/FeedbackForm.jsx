@@ -31,11 +31,11 @@ export default function FeedbackForm({ template, onSend }) {
           onChange={(e) => setLiked(e.target.checked)}
         />
         <label className="form-check-label" htmlFor="likeCheck">
-          👍 {t("likeIt")}
+          👍
         </label>
       </div>
       <button className="btn btn-success w-100" onClick={handleSendFeedback}>
-        {t("send")}
+        {t("submit")}
       </button>
     </>
   );

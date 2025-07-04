@@ -4,7 +4,11 @@ import { submitFIlledForm } from "../api/filledForms";
 import { useTranslation } from "react-i18next";
 import Comments from "./Comments";
 
-export default function FillTemplateForm({ template, onSubmitted }) {
+export default function FillTemplateForm({
+  template,
+  onSubmitted,
+  canSend = true,
+}) {
   const [answers, setAnswers] = useState({});
 
   const { t } = useTranslation();
@@ -96,11 +100,15 @@ export default function FillTemplateForm({ template, onSubmitted }) {
         {renderFields("single_text", "text")}
         {renderFields("mul_text", "text", true)}
 
-        <div className="text-end mt-4">
-          <Button variant="success" type="submit">
-            {t("submit")}
-          </Button>
-        </div>
+        {canSend ? (
+          <div className="text-end mt-4">
+            <Button variant="success" type="submit">
+              {t("submit")}
+            </Button>
+          </div>
+        ) : (
+          <></>
+        )}
       </Form>
       <Comments id={template.id} />
     </>

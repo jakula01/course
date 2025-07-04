@@ -1,25 +1,26 @@
-import { useTimeAgo } from "../utility/timeAgoCalculator";
-
+import { formatTimeAgo } from "../utility/timeAgoCalculator";
+import { useTranslation } from "react-i18next";
 export default function CommentItem({ comment }) {
-  const timeAgo = useTimeAgo(comment.created_at);
+  const { t } = useTranslation();
+  const timeAgo = formatTimeAgo(comment.created_at, t);
 
   return (
-    <li className="d-flex mb-3 pb-3 border-bottom align-items-start">
-      <div className="flex-shrink-0 me-3">
-        <div
-          className="bg-primary text-white rounded-circle d-flex align-items-center justify-content-center"
-          style={{ width: 40, height: 40 }}
-        >
-          <i className="bi bi-chat-dots" />
-        </div>
-      </div>
+    <li
+      className="d-flex border rounded shadow-sm "
+      style={{
+        paddingTop: "1rem",
+        paddingBottom: "1rem",
+        borderColor: "rgba(29, 16, 16, 0.1)",
+      }}
+    >
+      <div className="me-3 flex-shrink-0"></div>
 
-      <div className="flex-grow-1">
-        <div className="d-flex justify-content-between">
-          <span className="fw-semibold">{comment.user_email}</span>
-          <small className="text-muted ms-2">{timeAgo}</small>
+      <div className="flex-grow-1 pe-2">
+        <div className="d-flex justify-content-between align-items-center mb-1">
+          <span className="fw-semibold text-truncate">{comment.username}</span>
+          <small className="text-muted ms-3 flex-shrink-0">{timeAgo}</small>
         </div>
-        <p className="mb-0 text-wrap">{comment.message}</p>
+        <p className="mb-0 text-break">{comment.message}</p>
       </div>
     </li>
   );

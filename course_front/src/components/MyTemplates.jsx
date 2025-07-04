@@ -4,15 +4,14 @@ import { Button, Modal } from "react-bootstrap";
 import EditTemplateForm from "./EditTemplateForm";
 import { useTranslation } from "react-i18next";
 import TemplateCard from "./TemplateCard";
+import { useNavigate } from "react-router-dom";
 export default function MyTemplates() {
   const { t } = useTranslation();
-
+  const navigate = useNavigate();
   const [myTemplates, setMyTemplates] = useState([]);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(null);
   const [showModal, setShowModal] = useState(false);
-  const [selectedTemplate, setSelected] = useState(null);
-  const [isViewMode, setIsViewMode] = useState(false);
 
   const fetchMyForms = async () => {
     try {
@@ -38,7 +37,6 @@ export default function MyTemplates() {
           <Button
             variant="primary"
             onClick={() => {
-              setIsViewMode(false);
               setShowModal(true);
             }}
           >
@@ -68,9 +66,8 @@ export default function MyTemplates() {
             <TemplateCard
               template={tpl}
               onClick={() => {
-                setSelected(tpl);
-                setIsViewMode(true);
                 setShowModal(true);
+                navigate(`/template/${tpl.id}`, { state: tpl });
               }}
             />
           </div>
@@ -81,19 +78,16 @@ export default function MyTemplates() {
         show={showModal}
         onHide={() => {
           setShowModal(false);
-          setSelected(null);
           fetchMyForms();
         }}
         centered
       >
         <Modal.Body className="p-0">
           <EditTemplateForm
-            template={selectedTemplate}
             onCreated={() => {
               setShowModal(false);
               fetchMyForms();
             }}
-            isViewMode={isViewMode}
           />
         </Modal.Body>
       </Modal>
