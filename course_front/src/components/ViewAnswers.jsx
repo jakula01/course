@@ -1,5 +1,5 @@
 import { useEffect, useState } from "react";
-import { Spinner, Modal, Button, Badge } from "react-bootstrap";
+import { Spinner, Modal, Button } from "react-bootstrap";
 import { getAnswersOfForm } from "../api/filledForms";
 import { formatTimeAgo } from "../utility/timeAgoCalculator";
 import { useTranslation } from "react-i18next";
