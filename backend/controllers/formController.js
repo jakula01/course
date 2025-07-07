@@ -50,10 +50,13 @@ const getFormByIdHandler = async (req, res) => {
   try {
     const form = await getFormById(req.params.id);
     if (!form) return res.status(404).json({ error: "Form not found" });
+
     if (form.author !== req.user.email) {
-      return res
-        .status(403)
-        .json({ error: "You are not allowed to edit this form" });
+      if (req.user.role !== "admin") {
+        return res
+          .status(403)
+          .json({ error: "You are not allowed to edit this form" });
+      }
     }
     res.json(form);
   } catch (error) {

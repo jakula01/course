@@ -16,7 +16,8 @@ export default function FillTemplateForm({
   const { isAuthenticated } = useAuth();
   const navigate = useNavigate();
   const { user } = useAuth();
-  const isAuthor = user && user.email === template.author;
+  const isAuthor =
+    user && (user.email === template.author || user.role === "admin");
   const { t } = useTranslation();
   useEffect(() => {
     if (template && template.id) {

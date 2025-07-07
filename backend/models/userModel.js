@@ -7,10 +7,10 @@ async function findUserByEmail(email) {
   return result.rows[0];
 }
 
-async function createUser(username, email, hashedPassword) {
+async function createUser(username, email, hashedPassword, role) {
   const result = await db.query(
-    "INSERT INTO users (username, email, password) VALUES ($1, $2, $3) RETURNING id, username, email, role",
-    [username, email, hashedPassword]
+    "INSERT INTO users (username, email, password, role) VALUES ($1, $2, $3, $4) RETURNING id, username, email, role",
+    [username, email, hashedPassword, role]
   );
   return result.rows[0];
 }

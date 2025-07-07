@@ -58,6 +58,8 @@ const resources = {
       areYouSureDelete: "Are you sure?",
       templSearch: "Search by template",
       mailConfirmed: "Email confirmed!",
+      roleUser: "User",
+      roleAdmin: "Admin",
     },
   },
   ru: {
@@ -115,6 +117,8 @@ const resources = {
       areYouSureDelete: "Вы уверены?",
       templSearch: "Поиск по шаблонам",
       mailConfirmed: "Email подтверждён!",
+      roleUser: "Пользователь",
+      roleAdmin: "Администратор",
     },
   },
 };
