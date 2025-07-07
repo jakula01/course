@@ -64,6 +64,12 @@ export default function Head() {
                   {t("myAccount")}
                 </Dropdown.Item>
                 <Dropdown.Divider />
+                {user?.role === "admin" && (
+                  <Dropdown.Item onClick={() => navigate("/admin")}>
+                    <i className="bi bi-shield-lock-fill me-2"></i>
+                    {t("administration")}
+                  </Dropdown.Item>
+                )}
                 <Dropdown.Item onClick={handleLogout}>
                   <i className="bi bi-box-arrow-right me-2"></i>
                   {t("logout")}

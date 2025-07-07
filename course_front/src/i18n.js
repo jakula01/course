@@ -60,6 +60,10 @@ const resources = {
       mailConfirmed: "Email confirmed!",
       roleUser: "User",
       roleAdmin: "Admin",
+      createdAt: "Registration date",
+      block: "Block",
+      filter: "Filter",
+      administration: "Administration",
     },
   },
   ru: {
@@ -119,6 +123,10 @@ const resources = {
       mailConfirmed: "Email подтверждён!",
       roleUser: "Пользователь",
       roleAdmin: "Администратор",
+      createdAt: "Дата регистрации",
+      block: "Заблокировать",
+      filter: "Фильтр",
+      administration: "Администрация",
     },
   },
 };
