@@ -21,7 +21,7 @@ const deleteFormByIdHandler = async (req, res) => {
   try {
     const deleted = await deleteFormById(req.params.id);
     if (!deleted) return res.status(404).json({ error: "Form not found" });
-    res.status({ message: "Form deleted" });
+    res.status(200).json({ message: "Form deleted" });
   } catch (error) {
     console.error("Error creating form:", error);
     res.status(500).json({ error: "Failed to create form" });
@@ -50,6 +50,11 @@ const getFormByIdHandler = async (req, res) => {
   try {
     const form = await getFormById(req.params.id);
     if (!form) return res.status(404).json({ error: "Form not found" });
+    if (form.author !== req.user.email) {
+      return res
+        .status(403)
+        .json({ error: "You are not allowed to edit this form" });
+    }
     res.json(form);
   } catch (error) {
     console.error("Error getting ur forms:", error);

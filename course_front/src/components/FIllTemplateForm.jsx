@@ -1,18 +1,22 @@
 import { useState, useEffect } from "react";
-import { Form, Button, Modal } from "react-bootstrap";
+import { Form, Button } from "react-bootstrap";
 import { submitFIlledForm } from "../api/filledForms";
 import { useTranslation } from "react-i18next";
 import Comments from "./Comments";
 import { useAuth } from "../auth/useAuth";
+import { useNavigate } from "react-router-dom";
 
 export default function FillTemplateForm({
   template,
   onSubmitted,
   canSend = true,
+  isTemplatePage = true,
 }) {
   const [answers, setAnswers] = useState({});
   const { isAuthenticated } = useAuth();
-
+  const navigate = useNavigate();
+  const { user } = useAuth();
+  const isAuthor = user && user.email === template.author;
   const { t } = useTranslation();
   useEffect(() => {
     if (template && template.id) {
@@ -93,6 +97,20 @@ export default function FillTemplateForm({
   return (
     <>
       <Form onSubmit={handleSubmit} className="bg-white p-3 rounded shadow-sm">
+        {isAuthor && !isTemplatePage && (
+          <div className="d-flex justify-content-end gap-2 mb-3">
+            <Button
+              variant="outline-primary"
+              size="sm"
+              title={t("viewTemplate")}
+              onClick={() =>
+                navigate(`/template/${template.id}`, { state: template })
+              }
+            >
+              <i className="bi bi-pencil-square"></i>
+            </Button>
+          </div>
+        )}
         <h5 className="mb-3">
           {t("title")}: {template.title}
         </h5>

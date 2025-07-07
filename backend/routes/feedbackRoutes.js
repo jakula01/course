@@ -5,7 +5,7 @@ const {
   addLikeHandler,
 } = require("../controllers/feedbackController");
 const authMiddleware = require("../middleware/authMiddleware");
-router.get("/:id", authMiddleware, getAllCommentsHandler);
+router.get("/:id", getAllCommentsHandler);
 router.post("/comment", authMiddleware, addCommentHandler);
 router.put("/like", authMiddleware, addLikeHandler);
 

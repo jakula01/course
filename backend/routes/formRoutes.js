@@ -14,7 +14,7 @@ const {
 router.post("/create", authMiddleware, createFormHandler);
 router.get("/", getAllFormsHandler);
 router.get("/myForms", authMiddleware, getAllMyFormsHandler);
-router.get("/:id", getFormByIdHandler);
+router.get("/:id", authMiddleware, getFormByIdHandler);
 router.delete("/:id", authMiddleware, deleteFormByIdHandler);
 router.put("/:id", authMiddleware, updateFormHandler);
 module.exports = router;

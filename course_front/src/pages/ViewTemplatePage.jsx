@@ -7,10 +7,6 @@ import FillTemplateForm from "../components/FIllTemplateForm";
 import { useTranslation } from "react-i18next";
 import ViewAnswers from "../components/ViewAnswers";
 
-function TemplateAnswers() {
-  return <p className="text-muted">Coming&nbsp;soon…</p>;
-}
-
 export default function ViewTemplatePage() {
   const { id } = useParams();
   const navigate = useNavigate();
@@ -34,6 +30,9 @@ export default function ViewTemplatePage() {
         setForm(data);
       } catch (err) {
         console.error("Error loading form:", err);
+        if (err.response.status === 403) {
+          navigate("/cabinet");
+        }
         setError(t("failT"));
       } finally {
         setLoading(false);

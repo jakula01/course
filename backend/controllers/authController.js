@@ -1,11 +1,12 @@
 const bcrypt = require("bcrypt");
-const jwt = require("jsonwebtoken");
 const { createToken } = require("../utils");
 const { findUserByEmail, createUser } = require("../models/userModel");
 const register = async (req, res) => {
   const { username, email, password } = req.body;
+  console.log(req.body, username, email, password);
   try {
     const existingUser = await findUserByEmail(email);
+    console.log(existingUser);
     if (existingUser) {
       return res
         .status(400)

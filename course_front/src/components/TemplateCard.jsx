@@ -1,14 +1,19 @@
 import React from "react";
 import { useTranslation } from "react-i18next";
-
-export default function TemplateCard({ template, onClick }) {
+import { Form } from "react-bootstrap";
+export default function TemplateCard({
+  template,
+  isSelected,
+  onSelect,
+  onClick,
+}) {
   const { t } = useTranslation();
 
   return (
     <div
       role="button"
       onClick={onClick}
-      className="d-flex flex-column justify-content-between rounded shadow-sm bg-c"
+      className="d-flex flex-column justify-content-between rounded shadow-sm bg-c position-relative"
       style={{
         cursor: "pointer",
         height: "340px",
@@ -21,6 +26,24 @@ export default function TemplateCard({ template, onClick }) {
       onMouseEnter={(e) => (e.currentTarget.style.transform = "scale(1.03)")}
       onMouseLeave={(e) => (e.currentTarget.style.transform = "scale(1)")}
     >
+      {onSelect && (
+        <Form.Check
+          type="checkbox"
+          checked={isSelected}
+          onChange={(e) => {
+            e.stopPropagation();
+            onSelect();
+          }}
+          className="position-absolute"
+          style={{
+            top: "10px",
+            right: "10px",
+            zIndex: 10,
+            borderRadius: "4px",
+          }}
+          onClick={(e) => e.stopPropagation()}
+        />
+      )}
       <div>
         <h5
           className="text-primary fw-semibold mb-1 text-truncate"
