@@ -9,6 +9,7 @@ export async function registerUser(data) {
   try {
     const response = await API.post("/auth/register", data);
     const { token, user } = response.data;
+    console.log(user);
     saveUserDataToLocalStorage(token, user);
     return response.data;
   } catch (error) {
@@ -20,6 +21,7 @@ export async function loginUser(data) {
   try {
     const response = await API.post("/auth/login", data);
     const { token, user } = response.data;
+    console.log(user);
     saveUserDataToLocalStorage(token, user);
     return response.data;
   } catch (error) {

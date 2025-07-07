@@ -3,21 +3,31 @@ import { Form, Button, Card, Alert } from "react-bootstrap";
 import { loginUser, registerUser } from "../api/auth";
 import { useTranslation } from "react-i18next";
 import { useAuth } from "../auth/useAuth";
+
 export default function AuthForm({ setUser, handleClose }) {
   const { login } = useAuth();
   const [isLogin, setIsLogin] = useState(true);
   const { t } = useTranslation();
+
   const [formData, setFormData] = useState({
     username: "",
     email: "",
     password: "",
     confirmPassword: "",
+    role: "user", // default role
   });
+
   const [error, setError] = useState("");
 
   const toggleForm = () => {
     setIsLogin(!isLogin);
-    setFormData({ username: "", email: "", password: "", confirmPassword: "" });
+    setFormData({
+      username: "",
+      email: "",
+      password: "",
+      confirmPassword: "",
+      role: "user",
+    });
     setError("");
   };
 
@@ -29,24 +39,24 @@ export default function AuthForm({ setUser, handleClose }) {
     e.preventDefault();
     setError("");
 
-    const { username, email, password, confirmPassword } = formData;
+    const { username, email, password, confirmPassword, role } = formData;
 
     if (!isLogin && password !== confirmPassword) {
-      const err = t("dontmatch");
-      setError(err);
+      setError(t("dontmatch"));
       return;
     }
 
     try {
       const res = isLogin
         ? await loginUser({ email, password })
-        : await registerUser({ username, email, password });
+        : await registerUser({ username, email, password, role });
 
       setFormData({
         username: "",
         email: "",
         password: "",
         confirmPassword: "",
+        role: "user",
       });
       setUser(res.user);
       login(res.user);
@@ -66,16 +76,29 @@ export default function AuthForm({ setUser, handleClose }) {
 
       <Form onSubmit={handleSubmit}>
         {!isLogin && (
-          <Form.Group className="mb-3" controlId="formName">
-            <Form.Control
-              type="text"
-              name="username"
-              value={formData.username}
-              onChange={handleChange}
-              placeholder={t("username")}
-              required
-            />
-          </Form.Group>
+          <>
+            <Form.Group className="mb-3" controlId="formName">
+              <Form.Control
+                type="text"
+                name="username"
+                value={formData.username}
+                onChange={handleChange}
+                placeholder={t("username")}
+                required
+              />
+            </Form.Group>
+
+            <Form.Group className="mb-3" controlId="formRole">
+              <Form.Select
+                name="role"
+                value={formData.role}
+                onChange={handleChange}
+              >
+                <option value="user">{t("roleUser") ?? "User"}</option>
+                <option value="admin">{t("roleAdmin") ?? "Admin"}</option>
+              </Form.Select>
+            </Form.Group>
+          </>
         )}
 
         <Form.Group className="mb-3" controlId="formEmail">

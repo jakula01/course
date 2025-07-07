@@ -72,7 +72,7 @@ export default function HomePage() {
     <div className="container py-4">
       <input
         type="text"
-        placeholder="Поиск по шаблонам..."
+        placeholder={t("templSearch")}
         className="form-control mb-3"
         value={searchQuery}
         onChange={(e) => setSearchQuery(e.target.value)}
@@ -94,6 +94,7 @@ export default function HomePage() {
                 setSelectedTemplate(tpl);
                 setShowModal(true);
               }}
+              isTemplatePage={false}
             />
           </div>
         ))}

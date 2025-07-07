@@ -1,14 +1,20 @@
 import React from "react";
 import { useTranslation } from "react-i18next";
-import { Form } from "react-bootstrap";
+import { Form, Button } from "react-bootstrap";
+import { useNavigate } from "react-router-dom";
+import { useAuth } from "../auth/useAuth";
 export default function TemplateCard({
   template,
   isSelected,
   onSelect,
   onClick,
+  isTemplatePage = true,
 }) {
+  const { user } = useAuth();
+  const isAuthor =
+    user && (user.email === template.author || user.role === "admin");
   const { t } = useTranslation();
-
+  const navigate = useNavigate();
   return (
     <div
       role="button"
@@ -26,6 +32,7 @@ export default function TemplateCard({
       onMouseEnter={(e) => (e.currentTarget.style.transform = "scale(1.03)")}
       onMouseLeave={(e) => (e.currentTarget.style.transform = "scale(1)")}
     >
+      {/* чек‑бокс выбора шаблона */}
       {onSelect && (
         <Form.Check
           type="checkbox"
@@ -44,6 +51,39 @@ export default function TemplateCard({
           onClick={(e) => e.stopPropagation()}
         />
       )}
+
+      {/* кнопка «ViewTemplate» — автор или админ */}
+      {isAuthor && !isTemplatePage && (
+        <div
+          style={{
+            position: "absolute",
+            top: "10px",
+            right: onSelect ? "50px" : "10px", // если есть чек‑бокс — смещаем
+            zIndex: 10,
+          }}
+        >
+          <Button
+            variant="outline-primary"
+            size="sm"
+            title={t("viewTemplate")}
+            aria-label={t("viewTemplate")}
+            onClick={(e) => {
+              e.stopPropagation();
+              navigate(`/template/${template.id}`, { state: template });
+            }}
+            style={{
+              opacity: 0.85,
+              transition: "opacity 0.2s",
+            }}
+            onMouseEnter={(e) => (e.currentTarget.style.opacity = "1")}
+            onMouseLeave={(e) => (e.currentTarget.style.opacity = "0.85")}
+          >
+            <i className="bi bi-pencil-square"></i>
+          </Button>
+        </div>
+      )}
+
+      {/* заголовок / описание */}
       <div>
         <h5
           className="text-primary fw-semibold mb-1 text-truncate"
@@ -71,6 +111,7 @@ export default function TemplateCard({
         )}
       </div>
 
+      {/* изображение или заглушка */}
       <div
         className="mb-3 rounded bg-g"
         style={{
@@ -100,6 +141,7 @@ export default function TemplateCard({
         )}
       </div>
 
+      {/* футер с автором, комментариями, лайками */}
       <div className="d-flex justify-content-between align-items-center mt-auto pt-2 border-top">
         <small
           className="text-muted d-flex align-items-center"
