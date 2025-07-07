@@ -7,8 +7,9 @@ import ViewTemplatePage from "./pages/ViewTemplatePage.jsx";
 import { AuthProvider } from "./auth/useAuth.js";
 import ProtectedRoute from "./components/ProtectedRoute.jsx";
 import { ToastContainer } from "react-toastify";
+import AdminPage from "./pages/AdminPage.jsx";
 import "react-toastify/dist/ReactToastify.css";
-
+import AdminRoute from "./components/AdminRoute.jsx";
 function App() {
   return (
     <>
@@ -36,6 +37,14 @@ function App() {
           />
 
           <Route />
+          <Route
+            path="/admin"
+            element={
+              <AdminRoute>
+                <AdminPage />
+              </AdminRoute>
+            }
+          />
         </Routes>
       </AuthProvider>
     </>
