@@ -4,6 +4,7 @@ import { initReactI18next } from "react-i18next";
 const resources = {
   en: {
     translation: {
+      DataLoaded: "Data received",
       login: "Login",
       logout: "Logout",
       myAccount: "My profile",
@@ -64,10 +65,23 @@ const resources = {
       block: "Block",
       filter: "Filter",
       administration: "Administration",
+      duplicate:
+        "Such record already exists in the system. Please check the data and try again.",
+      FIO: "Full name",
+      company: "Company",
+      phone: "Phone",
+      info: "Fill the form",
+      profile: "Profile Info",
+      success: "Data successfully saved",
+      isntAuth: "User not authorized.",
+      errRead: "Error reading user data.",
+      haventFilled: "You have not yet filled in the user data",
+      errLoad: "Error loading user data.",
     },
   },
   ru: {
     translation: {
+      DataLoaded: "Данные загружены",
       login: "Вход",
       logout: "Выход",
       myAccount: "Личный кабинет",
@@ -127,6 +141,20 @@ const resources = {
       block: "Заблокировать",
       filter: "Фильтр",
       administration: "Администрация",
+      duplicate:
+        "Похоже, такая запись уже существует в системе. Пожалуйста, проверьте данные и попробуйте снова.",
+      FIO: "ФИО",
+      company: "Компания",
+      phone: "Телефон",
+      info: "Заполните форму",
+      SFsucces: "Информация успешно сохранена",
+      SFsucces1: "Информация успешно обновлена",
+      profile: "Данные профиля",
+      success: "Данные успешно сохранены",
+      isntAuth: "Пользователь не авторизован.",
+      errRead: "Ошибка чтения данных пользователя.",
+      haventFilled: "Вы еще не заполняние данные пользователя",
+      errLoad: "Ошибка при загрузке данных пользоваетеля.",
     },
   },
 };

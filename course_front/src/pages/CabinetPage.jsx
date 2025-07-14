@@ -1,11 +1,14 @@
 import { useState } from "react";
 import MyTemplates from "../components/MyTemplates";
 import MyFilledForms from "../components/MyFilledForms";
+import SalesforceForm from "../components/SalesforceForm";
 import { Card } from "react-bootstrap";
 import { useTranslation } from "react-i18next";
+
 export default function CabinetPage() {
   const [activeTab, setActiveTab] = useState("templates");
   const { t } = useTranslation();
+
   return (
     <div className="container mt-5">
       <div className="row">
@@ -32,6 +35,17 @@ export default function CabinetPage() {
                 <i className="bi bi-journal-check me-2"></i>
                 {t("myFilled")}
               </button>
+              <button
+                className={`btn text-start ${
+                  activeTab === "profile"
+                    ? "btn-primary"
+                    : "btn-outline-primary"
+                }`}
+                onClick={() => setActiveTab("profile")}
+              >
+                <i className="bi bi-person-lines-fill me-2"></i>
+                {t("profile")}
+              </button>
             </Card.Body>
           </Card>
         </div>
@@ -39,7 +53,9 @@ export default function CabinetPage() {
         <div className="col-md-9">
           <Card className="shadow-sm">
             <Card.Body>
-              {activeTab === "templates" ? <MyTemplates /> : <MyFilledForms />}
+              {activeTab === "templates" && <MyTemplates />}
+              {activeTab === "filled" && <MyFilledForms />}
+              {activeTab === "profile" && <SalesforceForm />}
             </Card.Body>
           </Card>
         </div>

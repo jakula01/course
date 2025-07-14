@@ -36,6 +36,8 @@ const login = async (req, res) => {
     const valid = await bcrypt.compare(password, user.password);
     if (!valid)
       return res.status(401).json({ error: "Invalid email or password" });
+    if (user.status === "blocked")
+      return res.status(401).json({ error: "User blocked" });
     const token = createToken(user);
     const data = {
       username: user.username,
