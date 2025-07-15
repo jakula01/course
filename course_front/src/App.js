@@ -10,9 +10,10 @@ import { ToastContainer } from "react-toastify";
 import AdminPage from "./pages/AdminPage.jsx";
 import "react-toastify/dist/ReactToastify.css";
 import AdminRoute from "./components/AdminRoute.jsx";
+import { TemplateTitleProvider } from "./components/TemplateTitleProvider.jsx";
 function App() {
   return (
-    <>
+    <TemplateTitleProvider>
       <AuthProvider>
         <ToastContainer position="top-right" autoClose={5000} />
         <Head />
@@ -47,7 +48,7 @@ function App() {
           />
         </Routes>
       </AuthProvider>
-    </>
+    </TemplateTitleProvider>
   );
 }
 

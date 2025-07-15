@@ -18,7 +18,6 @@ const upsertContact = async (req, res) => {
 
 const getContactByEmail = async (req, res) => {
   const { email } = req.query;
-
   try {
     const result = await salesforce.getContactByEmail(email);
 

@@ -6,12 +6,15 @@ import ThemeToggle from "./ThemeToggle";
 import LanguageSwitcher from "./LanguageSwitcher";
 import { useTranslation } from "react-i18next";
 import { useAuth } from "../auth/useAuth";
+import TicketForm from "./TicketForm";
 
 export default function Head() {
   const [showModal, setShowModal] = useState(false);
+  const [helpModal, setHelpModal] = useState(false);
   const [user, setUser] = useState(null);
   const handleClose = () => setShowModal(false);
   const handleShow = () => setShowModal(true);
+
   const navigate = useNavigate();
   const { t } = useTranslation();
   const { logout } = useAuth();
@@ -41,7 +44,19 @@ export default function Head() {
         <LanguageSwitcher />
         <div className="ms-auto d-flex align-items-center">
           {user ? (
-            <Dropdown>
+            <Dropdown className="d-flex align-items-center">
+              <Button
+                variant="outline-secondary"
+                size="sm"
+                className="me-3"
+                onClick={() => {
+                  setHelpModal(true);
+                }}
+                title="Help"
+              >
+                <i className="bi bi-question-circle"></i>
+              </Button>
+
               <Dropdown.Toggle
                 variant="light"
                 className="border-0 bg-white d-inline-flex align-items-center"
@@ -94,6 +109,7 @@ export default function Head() {
           <AuthForm setUser={setUser} handleClose={handleClose} />
         </Modal.Body>
       </Modal>
+      <TicketForm show={helpModal} setHelpModal={setHelpModal} user={user} />
     </>
   );
 }

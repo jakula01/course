@@ -111,24 +111,6 @@ export default function MyTemplates() {
           </div>
         ))}
       </div>
-
-      <Modal
-        centered
-        show={showModal}
-        onHide={() => {
-          setShowModal(false);
-          load();
-        }}
-      >
-        <Modal.Body className="p-0">
-          <EditTemplateForm
-            onCreated={() => {
-              setShowModal(false);
-              load();
-            }}
-          />
-        </Modal.Body>
-      </Modal>
     </div>
   );
 }

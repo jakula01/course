@@ -3,21 +3,25 @@ import { Spinner, Modal, Button } from "react-bootstrap";
 import { getAnswersOfForm } from "../api/filledForms";
 import { formatTimeAgo } from "../utility/timeAgoCalculator";
 import { useTranslation } from "react-i18next";
-
+import { useTemplateTitle } from "./TemplateTitleProvider";
 export default function ViewAnswers({ form }) {
   const { t } = useTranslation();
   const [answers, setAnswers] = useState([]);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(null);
   const [selected, setSelected] = useState(null);
-
+  const { setTemplateTitle } = useTemplateTitle();
   useEffect(() => {
     if (!form?.id) return;
+    setTemplateTitle(form.title);
     setLoading(true);
     getAnswersOfForm(form.id)
       .then(setAnswers)
       .catch(() => setError(t("failF")))
       .finally(() => setLoading(false));
+    return () => {
+      setTemplateTitle(null);
+    };
   }, [form?.id, t]);
 
   if (loading)

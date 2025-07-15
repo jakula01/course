@@ -2,7 +2,7 @@ import React, { useState, useEffect, useRef } from "react";
 import Toolbar from "../components/Toolbar";
 import UserRow from "../components/UserRow";
 import { useTranslation } from "react-i18next";
-import { useAuth } from "../auth/useAuth";
+
 import {
   getUsers,
   updateUserStatus,
@@ -17,7 +17,6 @@ export default function UserTable() {
   const selectAllRef = useRef();
 
   const [sortOrder, setSortOrder] = useState("desc");
-  const { userData } = useAuth();
 
   const filteredUsers = users
     .slice()

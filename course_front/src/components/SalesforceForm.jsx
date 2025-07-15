@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from "react";
 import { saveProfile, getProfileByEmail } from "../api/salesForce";
 import { useTranslation } from "react-i18next";
+import { toast } from "react-toastify";
 export default function SalesforceProfileForm() {
   const { t } = useTranslation();
   const [user, setUser] = useState(null);
@@ -10,15 +11,12 @@ export default function SalesforceProfileForm() {
     email: "",
     phone: "",
   });
-  const [status, setStatus] = useState("");
-  const [error, setError] = useState(null);
 
   useEffect(() => {
     const storedUser = localStorage.getItem("user");
     if (storedUser) {
       try {
         const parsedUser = JSON.parse(storedUser);
-        console.log(storedUser);
         setUser(parsedUser);
 
         setForm((prev) => ({
@@ -35,17 +33,17 @@ export default function SalesforceProfileForm() {
                 email: parsedUser.email || "",
                 phone: data.Phone || "",
               });
-              setStatus(t("DataLoaded"));
+              toast.success(t("DataLoaded"));
             } else {
-              setStatus(t("haventFilled"));
+              toast.success(t("haventFilled"));
             }
           })
-          .catch(() => setError(t("errLoad")));
+          .catch(() => toast.error(t("errLoad")));
       } catch {
-        setError(t("errRead"));
+        toast.error(t("errRead"));
       }
     } else {
-      setError(t("isntAuth"));
+      toast.error(t("isntAuth"));
     }
   }, [t]);
 
@@ -56,13 +54,12 @@ export default function SalesforceProfileForm() {
 
   const handleSubmit = async (e) => {
     e.preventDefault();
-    setError(null);
 
     try {
       await saveProfile(form);
-      setStatus(t("success"));
+      toast.success(t("success"));
     } catch {
-      setError(t("failT"));
+      toast.error(t("failT"));
     }
   };
 
@@ -108,9 +105,6 @@ export default function SalesforceProfileForm() {
           {t("submit")}
         </button>
       </form>
-
-      {status && <div className="alert alert-success mt-3">{status}</div>}
-      {error && <div className="alert alert-danger mt-3">{error}</div>}
     </div>
   );
 }

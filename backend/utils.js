@@ -1,5 +1,5 @@
 const jwt = require("jsonwebtoken");
-
+const crypto = require("crypto");
 const createToken = (user) => {
   const payload = {
     id: user.id,
@@ -10,4 +10,9 @@ const createToken = (user) => {
 
   return token;
 };
-module.exports = { createToken };
+
+function generateApiToken() {
+  return crypto.randomBytes(32).toString("hex");
+}
+
+module.exports = { createToken, generateApiToken };

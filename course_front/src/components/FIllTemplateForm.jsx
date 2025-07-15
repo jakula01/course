@@ -5,13 +5,14 @@ import { useTranslation } from "react-i18next";
 import Comments from "./Comments";
 import { useAuth } from "../auth/useAuth";
 import { useNavigate } from "react-router-dom";
-
+import { useTemplateTitle } from "./TemplateTitleProvider";
 export default function FillTemplateForm({
   template,
   onSubmitted,
   canSend = true,
   isTemplatePage = true,
 }) {
+  const { setTemplateTitle } = useTemplateTitle();
   const [answers, setAnswers] = useState({});
   const { isAuthenticated } = useAuth();
   const navigate = useNavigate();
@@ -21,6 +22,7 @@ export default function FillTemplateForm({
   const { t } = useTranslation();
   useEffect(() => {
     if (template && template.id) {
+      setTemplateTitle(template.title);
       const initialAnswers = {};
       ["int", "checkbox", "single_text", "mul_text"].forEach((type) => {
         for (let i = 1; i <= 4; i++) {
@@ -31,6 +33,9 @@ export default function FillTemplateForm({
         }
       });
       setAnswers(initialAnswers);
+      return () => {
+        setTemplateTitle(null);
+      };
     }
   }, [template]);
 

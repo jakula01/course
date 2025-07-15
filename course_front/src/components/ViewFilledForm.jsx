@@ -1,6 +1,10 @@
 import { useTranslation } from "react-i18next";
+import { useTemplateTitle } from "./TemplateTitleProvider";
+import { useEffect } from "react";
 export default function ViewFilledForm({ form }) {
   const { t } = useTranslation();
+  const { setTemplateTitle } = useTemplateTitle();
+
   const renderQA = (form, type) => {
     const questions = [];
     for (let i = 1; i <= 4; i++) {
@@ -17,6 +21,13 @@ export default function ViewFilledForm({ form }) {
     }
     return <div className="mb-3">{questions.length ? questions : <></>}</div>;
   };
+  useEffect(() => {
+    if (!form?.id) return;
+    setTemplateTitle(form.title);
+    return () => {
+      setTemplateTitle(null);
+    };
+  }, [form?.id]);
   return (
     <ul className="bg-white p-3 rounded shadow-sm space-y-2">
       <div key={form.id} className="border rounded p-3 shadow-sm mb-4">

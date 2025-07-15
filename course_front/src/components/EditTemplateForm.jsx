@@ -2,8 +2,11 @@ import { useState, useEffect } from "react";
 import { Button, Form } from "react-bootstrap";
 import { createForm, updateForm } from "../api/forms";
 import { useTranslation } from "react-i18next";
+import { useTemplateTitle } from "./TemplateTitleProvider";
 
 export default function EditTemplateForm({ template = {}, onCreated }) {
+  const { setTemplateTitle } = useTemplateTitle();
+
   const { t } = useTranslation();
   const [formData, setFormData] = useState({
     title: "",
@@ -16,6 +19,7 @@ export default function EditTemplateForm({ template = {}, onCreated }) {
 
   useEffect(() => {
     if (template && template.id) {
+      setTemplateTitle(template.title);
       setFormData({
         title: template.title || "",
         description: template.description || "",
@@ -24,6 +28,9 @@ export default function EditTemplateForm({ template = {}, onCreated }) {
         ...generateInitialFields("single_text", template),
         ...generateInitialFields("mul_text", template),
       });
+      return () => {
+        setTemplateTitle(null);
+      };
     }
   }, [template]);
 

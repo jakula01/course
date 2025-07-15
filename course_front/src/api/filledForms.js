@@ -13,6 +13,5 @@ export async function getAllMyFilledForms() {
 
 export async function getAnswersOfForm(formId) {
   const res = await API.get(`/filledForms/${formId}`);
-  console.log(res.data.answers);
   return res.data.answers;
 }
