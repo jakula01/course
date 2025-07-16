@@ -8,6 +8,7 @@ const feedbackRoutes = require("./routes/feedbackRoutes");
 const userRouets = require("./routes/userRoutes");
 const saleForceRoutes = require("./routes/salesForceRoutes");
 const ticketRoutes = require("./routes/ticketRoutes");
+const odooRoutes = require("./routes/odooRoutes");
 dotenv.config();
 const app = express();
 
@@ -21,6 +22,6 @@ app.use("/api/filledForms", filledFormRoutes);
 app.use("/api/feedback", feedbackRoutes);
 app.use("/api/users", userRouets);
 app.use("/api/dropbox", ticketRoutes);
-
+app.use("/api/odoo", odooRoutes);
 const PORT = process.env.PORT || 5000;
 app.listen(PORT, () => console.log(`Server running on port ${PORT}`));

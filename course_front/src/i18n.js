@@ -84,6 +84,10 @@ const resources = {
       ticket: "Support ticket",
       describeIssue: "Describe your issue...",
       ticketSuccess: "Ticket has been sent",
+      help: "Help",
+      apiTokenMissing: "API token is missing",
+      copyToken: "Copy API token",
+      copied: "Copied",
     },
   },
   ru: {
@@ -168,6 +172,10 @@ const resources = {
       ticket: "Сообщение в поддержку",
       describeIssue: "Опишите вашу проблему...",
       ticketSuccess: "Заявка отправлена",
+      help: "Помощь",
+      apiTokenMissing: "API токен отсутствует",
+      copyToken: "Скопировать API токен",
+      copied: "Скопировано",
     },
   },
 };

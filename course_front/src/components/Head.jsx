@@ -7,7 +7,7 @@ import LanguageSwitcher from "./LanguageSwitcher";
 import { useTranslation } from "react-i18next";
 import { useAuth } from "../auth/useAuth";
 import TicketForm from "./TicketForm";
-
+import OdooApiCopyButton from "./OdooApiCopyButton";
 export default function Head() {
   const [showModal, setShowModal] = useState(false);
   const [helpModal, setHelpModal] = useState(false);
@@ -44,7 +44,8 @@ export default function Head() {
         <LanguageSwitcher />
         <div className="ms-auto d-flex align-items-center">
           {user ? (
-            <Dropdown className="d-flex align-items-center">
+            <>
+              <OdooApiCopyButton apiToken={user.api_token} />
               <Button
                 variant="outline-secondary"
                 size="sm"
@@ -52,45 +53,46 @@ export default function Head() {
                 onClick={() => {
                   setHelpModal(true);
                 }}
-                title="Help"
+                title={t("help")}
               >
                 <i className="bi bi-question-circle"></i>
               </Button>
-
-              <Dropdown.Toggle
-                variant="light"
-                className="border-0 bg-white d-inline-flex align-items-center"
-                id="user-dropdown"
-              >
-                <div className="d-flex flex-column text-end me-2">
-                  <span className="fw-bold">{user.username}</span>
-                  <span
-                    className="text-muted-white"
-                    style={{ fontSize: "0.85rem" }}
-                  >
-                    {user.email}
-                  </span>
-                </div>
-                <i className="bi bi-person-circle fs-4 text-primary"></i>
-              </Dropdown.Toggle>
-              <Dropdown.Menu align="end">
-                <Dropdown.Item onClick={() => navigate("/cabinet")}>
-                  <i className="bi bi-person-lines-fill me-2"></i>
-                  {t("myAccount")}
-                </Dropdown.Item>
-                <Dropdown.Divider />
-                {user?.role === "admin" && (
-                  <Dropdown.Item onClick={() => navigate("/admin")}>
-                    <i className="bi bi-shield-lock-fill me-2"></i>
-                    {t("administration")}
+              <Dropdown className="d-flex align-items-center">
+                <Dropdown.Toggle
+                  variant="light"
+                  className="border-0 bg-white d-inline-flex align-items-center"
+                  id="user-dropdown"
+                >
+                  <div className="d-flex flex-column text-end me-2">
+                    <span className="fw-bold">{user.username}</span>
+                    <span
+                      className="text-muted-white"
+                      style={{ fontSize: "0.85rem" }}
+                    >
+                      {user.email}
+                    </span>
+                  </div>
+                  <i className="bi bi-person-circle fs-4 text-primary"></i>
+                </Dropdown.Toggle>
+                <Dropdown.Menu align="end">
+                  <Dropdown.Item onClick={() => navigate("/cabinet")}>
+                    <i className="bi bi-person-lines-fill me-2"></i>
+                    {t("myAccount")}
                   </Dropdown.Item>
-                )}
-                <Dropdown.Item onClick={handleLogout}>
-                  <i className="bi bi-box-arrow-right me-2"></i>
-                  {t("logout")}
-                </Dropdown.Item>
-              </Dropdown.Menu>
-            </Dropdown>
+                  <Dropdown.Divider />
+                  {user?.role === "admin" && (
+                    <Dropdown.Item onClick={() => navigate("/admin")}>
+                      <i className="bi bi-shield-lock-fill me-2"></i>
+                      {t("administration")}
+                    </Dropdown.Item>
+                  )}
+                  <Dropdown.Item onClick={handleLogout}>
+                    <i className="bi bi-box-arrow-right me-2"></i>
+                    {t("logout")}
+                  </Dropdown.Item>
+                </Dropdown.Menu>
+              </Dropdown>
+            </>
           ) : (
             <Button variant="outline-primary" onClick={handleShow}>
               {t("login")}

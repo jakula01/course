@@ -4,8 +4,8 @@ const {
   upsertContact,
   getContactByEmail,
 } = require("../controllers/salesForceController");
-
-router.post("/upsert-contact", upsertContact);
-router.get("/get-contact", getContactByEmail);
+const authMiddleware = require("../middleware/authMiddleware");
+router.post("/upsert-contact", authMiddleware, upsertContact);
+router.get("/get-contact", authMiddleware, getContactByEmail);
 
 module.exports = router;
